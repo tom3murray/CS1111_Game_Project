@@ -1,11 +1,11 @@
-# Partners: Noah Cook, syr4gv and Tommy Murray,
+# Partners: Noah Cook, syr4gv and Tommy Murray, tkm2uft
 # Description: A game in which the user is driving a car down a straight road, from a top down perspective, and has
 # to move left and right to avoid obstacles and pick up coins, and is given a score based on how long
 # they survive and how many coins they pick up.
 # 3 basic features:
 # User input: We will incorporate this by having the player press the left and right arrow keys in order to move the car
 # in either direction on the road
-# Game over: We will incorporate this by having the player have three lives, of which they will love one every time they
+# Game over: We will incorporate this by having the player have three lives, of which they will lose one every time they
 # hit an obstacle or go off road.
 # Graphics: We will include sprites for the car, the obstacles, and the coins, and include a road for the background.
 # 4 additional features:
