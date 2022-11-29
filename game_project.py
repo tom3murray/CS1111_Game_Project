@@ -99,7 +99,13 @@ int_current_score = 0
 
 game_over = gamebox.from_text(camera.x, camera.y, 'GAME OVER', 100, "red")
 game_over_bool = False
+
 def right_lane_traffic(li_cars):
+    '''
+    Creates and draws cars to populate the right lane
+    :param li_cars: The list of right lane car sprites
+    :return: No return
+    '''
     for bot_car in li_cars:
         bot_car.y += 5
         if bot_car.y > 800:
@@ -113,6 +119,11 @@ def right_lane_traffic(li_cars):
         camera.draw(bot_car)
         
 def left_lane_traffic(li_cars):
+    '''
+    Creates and draws the left lane cars
+    :param li_cars: A list of cars meant to populate the left lane
+    :return:
+    '''
     for bot_car in li_cars:
         bot_car.y += 20
         if bot_car.y > 800:
@@ -126,6 +137,11 @@ def left_lane_traffic(li_cars):
         camera.draw(bot_car)
 
 def hazards(li_hazards):
+    '''
+    Places hazards along the side of the road
+    :param li_hazards: The list of hazards
+    :return: No return
+    '''
     global hazard_domain
 
     for hazard in li_hazards:
@@ -141,22 +157,21 @@ def hazards(li_hazards):
                 hazard.move_to_stop_overlapping(other_hazard)
         camera.draw(hazard)
 
-def coinmaker():
+def coin_maker():
+    '''
+    Places, removes, and moves coins and creates new coins
+    :return:
+    '''
     global coinnum
     global coins
     coin_counter = gamebox.from_text(760, 525, str(coinnum), 50, "yellow")
     camera.draw(coin_counter)
     for coin in coins:
         camera.draw(coin)
-        coin.y += 5
+        coin.y += 3
         if player_car.touches(coin):
-            coins.remove(coin)
             coinnum += 1
-            rand = random.randint(0, 717)
-            c = gamebox.from_image(rand, 0, "coins.jpg")
-            c.scale_by(.05)
-            coins.append(c)
-        elif coin.y >= 600:
+        if player_car.touches(coin) or coin.y >= 600:
             coins.remove(coin)
             rand = random.randint(0, 717)
             c = gamebox.from_image(rand, 0, "coins.jpg")
@@ -166,6 +181,11 @@ def coinmaker():
 
 
 def life_taker():
+    '''
+    Removes a heart when an obstacle is hit, and displays a game over when hearts reach zero, as well as stopping the
+    game
+    :return:
+    '''
     global all_enemies
     global game_over
     global game_over_bool
@@ -186,6 +206,10 @@ def life_taker():
     camera.draw(life3)
 
 def score_keeper():
+    '''
+    Ups the score by one every tick and displays
+    :return:
+    '''
     global int_current_score
     int_current_score += 1
     str_current_score = str(int_current_score)
@@ -193,6 +217,11 @@ def score_keeper():
     camera.draw(score)
 
 def tick():
+    '''
+    If it is not game_over, allows car movement left and right, as well as stopping collision with sides, and uses all
+    helper functions
+    :return:
+    '''
     camera.clear('blue')
     if game_over_bool == False:
         for road in roads:
@@ -216,14 +245,16 @@ def tick():
             player_car.move_to_stop_overlapping(right_wall)
 
         right_lane_traffic(right_lane_cars)
+
         left_lane_traffic(left_lane_cars)
+
         hazards(terrain_hazards)
 
         score_keeper()
 
         life_taker()
 
-        coinmaker()
+        coin_maker()
 
         camera.draw(player_car)
         camera.display()
