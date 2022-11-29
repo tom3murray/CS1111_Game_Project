@@ -37,16 +37,22 @@ r_blue_car.scale_by(0.13074712)
 right_lane_cars = [r_white_car,r_yellow_car,r_red_car,r_pink_car,r_gray_car,r_blue_car]
 
 l_white_car = gamebox.from_image(130,-100,"white_car.png")
+l_white_car.rotate(180)
 l_white_car.scale_by(.307)
 l_yellow_car = gamebox.from_image(130,-200,"yellow_car.png")
+l_yellow_car.rotate(180)
 l_yellow_car.scale_by(0.23453608)
 l_red_car = gamebox.from_image(130,-300,"red_car.png")
+l_red_car.rotate(180)
 l_red_car.scale_by(0.22377049)
 l_pink_car = gamebox.from_image(130,-400,"pink_car.png")
+l_pink_car.rotate(180)
 l_pink_car.scale_by(0.273)
 l_gray_car = gamebox.from_image(130,-500,"gray_car.png")
+l_gray_car.rotate(180)
 l_gray_car.scale_by(0.25657894)
 l_blue_car = gamebox.from_image(130,-600,"blue_car.png")
+l_blue_car.rotate(180)
 l_blue_car.scale_by(0.13074712)
 
 left_lane_cars = [l_white_car,l_yellow_car,l_red_car,l_pink_car,l_gray_car,l_blue_car]
