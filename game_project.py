@@ -70,6 +70,19 @@ a_puddle.scale_by(.173)
 b_puddle = gamebox.from_image(0,1800,"puddle.png")
 b_puddle.scale_by(.173)
 
+
+coins = []
+for x in range(5):
+    randy = random.randint(0, 717)
+    randx = random.randint(0, 400)
+    randx*=-1
+    coins.append(gamebox.from_image(randy, randx, "coins.jpg"))
+for coin in coins:
+    coin.scale_by(.05)
+
+coinnum = 0
+
+
 terrain_hazards = [a_crater, b_crater, a_nails, b_nails, a_puddle, b_puddle]
 hazard_domain = [(0,130),(600,718)]
 
@@ -128,6 +141,30 @@ def hazards(li_hazards):
                 hazard.move_to_stop_overlapping(other_hazard)
         camera.draw(hazard)
 
+def coinmaker():
+    global coinnum
+    global coins
+    coin_counter = gamebox.from_text(760, 525, str(coinnum), 50, "yellow")
+    camera.draw(coin_counter)
+    for coin in coins:
+        camera.draw(coin)
+        coin.y += 5
+        if player_car.touches(coin):
+            coins.remove(coin)
+            coinnum += 1
+            rand = random.randint(0, 717)
+            c = gamebox.from_image(rand, 0, "coins.jpg")
+            c.scale_by(.05)
+            coins.append(c)
+        elif coin.y >= 600:
+            coins.remove(coin)
+            rand = random.randint(0, 717)
+            c = gamebox.from_image(rand, 0, "coins.jpg")
+            c.scale_by(.05)
+            coins.append(c)
+
+
+
 def life_taker():
     global all_enemies
     global game_over
@@ -185,6 +222,8 @@ def tick():
         score_keeper()
 
         life_taker()
+
+        coinmaker()
 
         camera.draw(player_car)
         camera.display()
